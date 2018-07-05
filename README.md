@@ -1,4 +1,4 @@
-# common-denominators
+# fast-primes
 
 A suite of JS functions to find prime numbers
 
