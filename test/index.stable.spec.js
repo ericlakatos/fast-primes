@@ -8,6 +8,13 @@ describe('is prime', () => {
         expect(output).toEqual(expected);
     });
 
+    it('finds that {} is not prime', function() {
+        let output = isPrime({});
+        let expected = false;
+
+        expect(output).toEqual(expected);
+    });
+
     it('finds that 47 is prime', function() {
         let output = isPrime(47);
         let expected = true;
@@ -15,7 +22,21 @@ describe('is prime', () => {
         expect(output).toEqual(expected);
     });
 
+    it('finds that 47 is prime and {} is not returned', function() {
+        let output = isPrime(47);
+        let expected = true;
+
+        expect(output).toEqual(expected);
+    });
+
     it('finds that 808689 is not prime', function() {
+        let output = isPrime(808689);
+        let expected = false;
+
+        expect(output).toEqual(expected);
+    });
+
+    it('finds that 808689 is not prime and {} is not returned', function() {
         let output = isPrime(808689);
         let expected = false;
 

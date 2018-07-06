@@ -135,7 +135,7 @@ suite
                 (diff / stable) * 100
             )}% ${suites[0].name.toUpperCase()} DELTA: ${test.case} -> ${
                 test.name
-            }`;
+            } `;
 
             log(
                 better

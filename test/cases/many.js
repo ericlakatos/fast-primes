@@ -1,7 +1,7 @@
 let testCaseMany = [];
 
-for (let i = 0; i < 10000; i++) {
-    testCaseMany.push(Math.floor(Math.random() * 10000));
+for (let i = 0; i < 1000; i++) {
+    testCaseMany.push(Math.floor(Math.random() * 1000000));
 }
 
 module.exports = testCaseMany;

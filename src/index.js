@@ -1,16 +1,18 @@
 module.exports = {
     isPrime: num => {
-        if (!Number.isInteger(num) || num <= 2 || num % 2 === 0) return false;
+        if (!(num & 1)) return false;
 
         const sqrt = Math.sqrt(num);
 
-        for (let i = 3; i <= sqrt; i++) {
+        for (let i = 3; i <= sqrt; i += 2) {
             if (num % i === 0) return false;
         }
 
         return true;
     },
     findPrime: (...args) => {
+        // This is a very blown out version that returns a data object
+        // We should probably just be okay returning an array of valid primes
         const nums = Array.from(
             new Set(args.filter(number => Number.isInteger(number)))
         );
@@ -19,7 +21,7 @@ module.exports = {
             const sqrt = Math.sqrt(num);
             let result = { number: num, isPrime: true };
 
-            if (num <= 2 || num % 2 === 0) {
+            if (!(num & 1)) {
                 result.isPrime = false;
             } else {
                 for (let i = 3; i <= sqrt; i++) {
