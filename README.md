@@ -9,9 +9,17 @@ Write your own function inside of `src/index.js`. Run the `npm run validate` com
 ## Usage
 
 ```javascript
-const fastPrimes = require('./fast-primes');
+const { isPrime, findPrime } = require('fast-primes');
 
-fastPrimes(6); // -> false
+isPrime(6);
+// return Boolean: false
+
+findPrime(6, 47, 808689);
+// return Array: [
+//     { number: 6, isPrime: false },
+//     { number: 47, isPrime: true },
+//     { number: 808689, isPrime: false },
+// ];
 ```
 
 ## Development

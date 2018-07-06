@@ -4,21 +4,52 @@ const log = console.log;
 const Benchmark = require('benchmark');
 const suite = new Benchmark.Suite();
 
-const fns = [
+const suites = [
     {
         name: 'Working',
-        fn: require('../src/index.min'),
+        tests: [
+            {
+                name: 'isPrime',
+                case: 'One Number',
+                data: require('./cases/one'),
+                fn: require('../src/index.min').isPrime,
+            },
+            {
+                name: 'findPrime',
+                case: 'Few Numbers',
+                data: require('./cases/few'),
+                fn: require('../src/index.min').findPrime,
+            },
+            {
+                name: 'findPrime',
+                case: 'Many Numbers',
+                data: require('./cases/many'),
+                fn: require('../src/index.min').findPrime,
+            },
+        ],
     },
     {
         name: 'Stable',
-        fn: require('../build/index.min'),
-    },
-];
-
-const cases = [
-    {
-        name: 'One Number',
-        data: require('./cases/one'),
+        tests: [
+            {
+                name: 'isPrime',
+                case: 'One Number',
+                data: require('./cases/one'),
+                fn: require('../build/index.min').isPrime,
+            },
+            {
+                name: 'findPrime',
+                case: 'Few Numbers',
+                data: require('./cases/few'),
+                fn: require('../build/index.min').findPrime,
+            },
+            {
+                name: 'findPrime',
+                case: 'Many Numbers',
+                data: require('./cases/many'),
+                fn: require('../build/index.min').findPrime,
+            },
+        ],
     },
 ];
 
@@ -28,12 +59,24 @@ let results = [];
 let cycles = 0;
 let ops = 0;
 
-for (let test of cases) {
-    for (let fn of fns) {
+for (let tests of suites) {
+    for (let test in tests.tests) {
         for (let i = 1; i <= average; i++) {
-            suite.add(`${fn.name}: ${test.name}`, () => {
-                fn.fn(test.data);
-            });
+            const name = tests.name;
+            const testName = tests.tests[test].case;
+            const fn = tests.tests[test].fn;
+            const data = tests.tests[test].data;
+            const isArray = typeof data === 'array';
+
+            if (isArray) {
+                suite.add(`${name}: ${testName}`, () => {
+                    fn(...data);
+                });
+            } else {
+                suite.add(`${name}: ${testName}`, () => {
+                    fn(data);
+                });
+            }
         }
     }
 }
@@ -80,9 +123,9 @@ suite
         readline.cursorTo(process.stdout, 0);
         log();
 
-        cases.reduce((counter, cs) => {
-            const work = parseInt(results[counter * cases.length]);
-            const stable = parseInt(results[counter * cases.length + 1]);
+        suites[0].tests.reduce((counter, test, index, arr) => {
+            const work = parseInt(results[counter]);
+            const stable = parseInt(results[counter + arr.length]);
             const diff = parseInt(work - stable);
             const min = parseInt(stable * benchmark);
             const better = diff > min;
@@ -90,7 +133,9 @@ suite
             const comparable = !better && !worse;
             const msg = ` ${parseInt(
                 (diff / stable) * 100
-            )}% ${fns[0].name.toUpperCase()} DELTA: ${cases[counter].name} `;
+            )}% ${suites[0].name.toUpperCase()} DELTA: ${test.case} -> ${
+                test.name
+            }`;
 
             log(
                 better

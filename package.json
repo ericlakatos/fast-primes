@@ -1,7 +1,7 @@
 {
     "name": "fast-primes",
     "version": "0.0.1",
-    "author": "Emett Speer, Eric Lakatos",
+    "author": "Eric Lakatos",
     "license": "MIT",
     "description": "A suite of JS functions to find prime numbers",
     "repository": {
