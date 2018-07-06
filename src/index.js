@@ -4,7 +4,7 @@ module.exports = {
 
         const sqrt = Math.sqrt(num);
 
-        for (let i = 3; i <= sqrt; i++) {
+        for (let i = 3; i <= sqrt; i+=2 ) {
             if (num % i === 0) return false;
         }
 
