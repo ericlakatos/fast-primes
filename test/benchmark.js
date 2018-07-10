@@ -26,6 +26,12 @@ const suites = [
                 data: require('./cases/many'),
                 fn: require('../src/index.min').findPrime,
             },
+            {
+                name: 'findPrimeInRange',
+                case: 'Two Numbers',
+                data: require('./cases/two'),
+                fn: require('../src/index.min').findPrimeInRange,
+            },
         ],
     },
     {
@@ -49,11 +55,17 @@ const suites = [
                 data: require('./cases/many'),
                 fn: require('../build/index.min').findPrime,
             },
+            {
+                name: 'findPrimeInRange',
+                case: 'Two Numbers',
+                data: require('./cases/two'),
+                fn: require('../src/index.min').findPrimeInRange,
+            },
         ],
     },
 ];
 
-const average = 3; // Amount to run each test
+const average = 1; // Amount to run each test
 const benchmark = 0.1; // Percent to compare against
 let results = [];
 let cycles = 0;
