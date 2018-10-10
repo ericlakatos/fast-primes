@@ -11,17 +11,18 @@ const checkPrime = num => {
 
 const isPrime = num => {
     if (!Number.isInteger(num)) return false; 
-    return checkPrime(num)
+    return checkPrime(num);
 }
 
 module.exports = {
     isPrime: isPrime,
     findPrime: (...args) => {
-        return args.reduce((lsit, num) => {
-            if (!Number.isInteger(num)) {
-                return false;
+        return args.reduce((nums, num) => {
+            if (Number.isInteger(num)) {
+                nums.push({number: num, isPrime: checkPrime(num)});
+                return nums;
             }
-            return {number: num, isPrime: checkPrime(num)};
-        })
+            return nums;
+        }, []);
     },
 };
