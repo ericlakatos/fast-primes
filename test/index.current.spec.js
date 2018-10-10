@@ -25,7 +25,15 @@ describe('is prime', () => {
 
 describe('primes', () => {
     it('finds that 6, 47 and 808689 returns a valid result array', function() {
-        let output = findPrime(6, 47, 808689);
+        let output = findPrime(6, 47, 808689).sort((num1, num2) => {
+            if (num1.number < num2.number) {
+                return -1;
+            }
+            if (num1.number > num2.number) {
+                return 1;
+            }
+            return 0;
+        });
         let expected = [
             { number: 6, isPrime: false },
             { number: 47, isPrime: true },

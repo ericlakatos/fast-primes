@@ -1,35 +1,27 @@
+const checkPrime = num => {
+    if (num <= 2 || num % 2 === 0) return false;
+    const sqrt = Math.sqrt(num);
+
+    for (let i = 3; i <= sqrt; i++) {
+        if (num % i === 0) return false;
+    }
+
+    return true;
+}
+
+const isPrime = num => {
+    if (!Number.isInteger(num)) return false; 
+    return checkPrime(num)
+}
+
 module.exports = {
-    isPrime: num => {
-        if (!Number.isInteger(num) || num <= 2 || num % 2 === 0) return false;
-
-        const sqrt = Math.sqrt(num);
-
-        for (let i = 3; i <= sqrt; i++) {
-            if (num % i === 0) return false;
-        }
-
-        return true;
-    },
+    isPrime: isPrime,
     findPrime: (...args) => {
-        const nums = Array.from(
-            new Set(args.filter(number => Number.isInteger(number)))
-        );
-
-        return nums.reduce((results, num, index, arr) => {
-            const sqrt = Math.sqrt(num);
-            let result = { number: num, isPrime: true };
-
-            if (num <= 2 || num % 2 === 0) {
-                result.isPrime = false;
-            } else {
-                for (let i = 3; i <= sqrt; i++) {
-                    if (num % i === 0) result.isPrime = false;
-                }
+        return args.reduce((lsit, num) => {
+            if (!Number.isInteger(num)) {
+                return false;
             }
-
-            results.push(result);
-
-            return results;
-        }, []);
+            return {number: num, isPrime: checkPrime(num)};
+        })
     },
 };
